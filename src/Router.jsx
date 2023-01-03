@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Container from "./layout/Container";
 import Login from "./pages/Login";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Login />} />
+        </Routes>
+      </Container>
     </BrowserRouter>
   );
 }

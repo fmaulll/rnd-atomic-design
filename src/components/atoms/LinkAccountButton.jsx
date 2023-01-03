@@ -1,8 +1,8 @@
 import React from 'react'
 
-const LinkAccountButton = ({children}) => {
+const LinkAccountButton = ({children, handleClick}) => {
   return (
-    <button className='border-2 border-black rounded-2xl py-4 px-[72px] flex items-center'>
+    <button onClick={handleClick} className='border-2 border-black rounded-2xl py-4 px-[72px] flex items-center'>
         {children}
     </button>
   )

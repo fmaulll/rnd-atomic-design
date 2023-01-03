@@ -4,8 +4,27 @@ import Button from "../atoms/Button";
 import InputText from "../atoms/InputText";
 import LinkAccountButton from "../atoms/LinkAccountButton";
 import { FcGoogle } from "react-icons/fc";
+import { useDispatch } from "react-redux";
+import { googleSignIn, googleSignOut } from "../../store/authSlice";
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { auth } from "../../helpers/firebase";
 
 const LoginCard = () => {
+  const dispatch = useDispatch();
+
+  const handleClickGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+    onAuthStateChanged(auth, (currentUser) => {
+      dispatch(googleSignIn(currentUser.auth.currentUser))
+    })
+      
+  };
+
+  const handleSignOut = () => {
+    dispatch(googleSignOut())
+  }
+
   return (
     <div className="shadow rounded-md w-[385px] flex justify-center items-center flex-col pt-10 pb-[18px] px-5">
       <div className="w-full mb-[30px]">
@@ -26,11 +45,11 @@ const LoginCard = () => {
         </div>
       </div>
       <div className="mb-[30px]">
-        <LinkAccountButton>
+        <LinkAccountButton handleClick={handleClickGoogle}>
           <FcGoogle className="mr-2" size={"24px"} /> Continue with Google{" "}
         </LinkAccountButton>
       </div>
-      <Button>Login</Button>
+      <Button handleClick={handleSignOut}>Login</Button>
     </div>
   );
 };
