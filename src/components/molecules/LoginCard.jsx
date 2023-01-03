@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { googleSignIn, googleSignOut } from "../../store/authSlice";
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebase/auth";
 import { auth } from "../../helpers/firebase";
+import { loading } from "../../store/uiSlice";
 
 const LoginCard = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const LoginCard = () => {
     signInWithPopup(auth, provider);
     onAuthStateChanged(auth, (currentUser) => {
       dispatch(googleSignIn(currentUser.auth.currentUser))
+      dispatch(loading())
     })
       
   };
